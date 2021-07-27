@@ -1,0 +1,45 @@
+{
+  "name": "d3/datawizardtasks",
+  "description": "Exporte und Aktionen für DataWizard",
+  "type": "oxideshop-module",
+  "keywords": [
+    "oxid",
+    "modules",
+    "eShop",
+    "d3",
+    "export",
+    "DataWizard"
+  ],
+  "authors": [
+    {
+      "name": "D3 Data Development (Inh. Thomas Dartsch)",
+      "email": "info@shopmodule.com",
+      "homepage": "https://www.d3data.de",
+      "role": "Owner"
+    }
+  ],
+  "support": {
+    "email": "support@shopmodule.com"
+  },
+  "homepage": "https://www.oxidmodule.com/",
+  "license": [
+    "GPL-3.0-or-later"
+  ],
+  "require": {
+    "d3/datawizard": "^1.2"
+  },
+  "extra": {
+    "oxideshop": {
+      "blacklist-filter": [
+        "*.md",
+        "composer.json"
+      ],
+      "target-directory": "d3/datawizardtasks"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "D3\\DataWizardTasks\\": "../../../source/modules/d3/datawizardtasks"
+    }
+  }
+}
