@@ -16,6 +16,10 @@ declare(strict_types=1);
 /**
  * Metadata version
  */
+
+use D3\DataWizard\Application\Model\Configuration as ConfigurationParent;
+use D3\DataWizardTasks\Modules\DataWizard\Application\Model\Configuration;
+
 $sMetadataVersion = '2.1';
 
 $sModuleId = 'd3datawizardtasks';
@@ -40,7 +44,9 @@ $aModule = [
     'email'       => 'support@shopmodule.com',
     'url'         => 'https://www.oxidmodule.com/',
     'controllers' => [],
-    'extend'      => [],
+    'extend'      => [
+        ConfigurationParent::class => Configuration::class
+    ],
     'events'      => [],
     'templates'   => [],
     'settings'    => [],
