@@ -20,19 +20,25 @@ $sLangName = "Deutsch";
 $aLang = array(
 
 //Navigation
-    'charset'                                              => 'UTF-8',
+    'charset'                                                       => 'UTF-8',
 
-    'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES'        => 'deaktivierte Kategorien, mit aktiven Artikeln',
-    'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_TREE'   => 'Baum',
-    'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_TITLE'  => 'Titel',
-    'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_COUNT'  => 'Anzahl',
+    'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES'                 => 'deaktivierte Kategorien, mit aktiven Artikeln',
+    'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_TREE'            => 'Baum',
+    'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_TITLE'           => 'Titel',
+    'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_COUNT'           => 'Anzahl',
 
-    'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES'                => 'Bestellungskennzahlen nach Monat',
-    'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_STARTDATE'=> 'Startdatum (optional)',
-    'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_ENDDATE'  => 'Enddatum (optional)',
-    'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_ORDERSPERMONTH' => 'Bestellungen pro Monat',
-    'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_BASKETSIZE'     => 'Warenkorbhöhe',
-    'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_MONTH'          => 'Monat',
+    'D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS'       => 'Texte mit zerstörten Sonderzeichen',
+    'D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_DESC'  => 'passiert tlw. beim Speichern im WYSIWYG-Editor und führt zu Shop-Fehlern',
+    'D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_LOADID'=> 'Lade-ID',
+    'D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_TITLE' => 'Titel',
 
-    'D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS'        => 'fehlende oxartextends-Einträge nachtragen',
+    'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES'                         => 'Bestellungskennzahlen nach Monat',
+    'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_STARTDATE'         => 'Startdatum (optional)',
+    'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_ENDDATE'           => 'Enddatum (optional)',
+    'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_ORDERSPERMONTH'          => 'Bestellungen pro Monat',
+    'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_BASKETSIZE'              => 'Warenkorbhöhe',
+    'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_MONTH'                   => 'Monat',
+
+    'D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS'                 => 'fehlende oxartextends-Einträge nachtragen',
+    'D3_DATAWIZARDTASKS_ACTIONS_FIXWYSIWYGSPECIALCHARS'             => 'Texte mit zerstörten Sonderzeichen korrigieren',
 );

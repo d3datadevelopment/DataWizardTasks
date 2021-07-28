@@ -15,6 +15,8 @@ namespace D3\DataWizardTasks\Modules\DataWizard\Application\Model;
 
 use D3\DataWizard\Application\Model\Configuration as ConfigurationParent;
 use D3\DataWizardTasks\Application\Model\Actions\FixArtextendsItems;
+use D3\DataWizardTasks\Application\Model\Actions\FixWysiwygSpecialChars;
+use D3\DataWizardTasks\Application\Model\Exports\DestroyedWysiwygSpecialChars;
 use D3\DataWizardTasks\Application\Model\Exports\InactiveCategories;
 use D3\DataWizardTasks\Application\Model\Exports\KeyFigures;
 
@@ -25,8 +27,10 @@ class Configuration extends Configuration_parent
         parent::configure();
 
         $this->registerAction( ConfigurationParent::GROUP_ARTICLES, oxNew( FixArtextendsItems::class));
+        $this->registerAction( ConfigurationParent::GROUP_CMS, oxNew( FixWysiwygSpecialChars::class));
 
         $this->registerExport( ConfigurationParent::GROUP_CATEGORY, oxNew( InactiveCategories::class));
         $this->registerExport( ConfigurationParent::GROUP_SHOP, oxNew( KeyFigures::class));
+        $this->registerExport( ConfigurationParent::GROUP_CMS, oxNew( DestroyedWysiwygSpecialChars::class));
     }
 }
