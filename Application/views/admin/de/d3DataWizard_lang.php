@@ -28,7 +28,7 @@ $aLang = array(
     'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_COUNT'           => 'Anzahl',
 
     'D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS'       => 'Texte mit zerstörten Sonderzeichen',
-    'D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_DESC'  => 'passiert tlw. beim Speichern im WYSIWYG-Editor und führt zu Shop-Fehlern',
+    'D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_DESC'  => 'Dies wird typischerweise beim Speichern von Texten im WYSIWYG-Editor hervorgerufen und kann zu undefinierten Fehlern im Shopablauf führen.',
     'D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_LOADID'=> 'Lade-ID',
     'D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_TITLE' => 'Titel',
 
