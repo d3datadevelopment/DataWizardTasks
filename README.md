@@ -1,4 +1,5 @@
-> [english version](README.en.md)
+[![deutsche Version](https://logos.oxidmodule.com/de2_xs.svg)](README.md)
+[![english version](https://logos.oxidmodule.com/en2_xs.svg)](README.en.md)
 
 # D³ Data Wizard Aufgaben für OXID eShop
 
