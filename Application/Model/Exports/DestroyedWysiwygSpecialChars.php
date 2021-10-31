@@ -24,12 +24,12 @@ class DestroyedWysiwygSpecialChars extends ExportBase
      */
     public function getTitle() : string
     {
-        return Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS');
+        return Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS', null, true);
     }
 
     public function getDescription() : string
     {
-        return Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_DESC');
+        return Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_DESC', null, true);
     }
 
     /**
@@ -40,8 +40,8 @@ class DestroyedWysiwygSpecialChars extends ExportBase
         $content            = oxNew(Content::class);
         $contentTableName   = $content->getCoreTableName();
 
-        $titleTitle = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_TITLE');
-        $loadIdTitle = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_LOADID');
+        $titleTitle = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_TITLE', null, true);
+        $loadIdTitle = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_LOADID', null, true);
 
         $currentLanguage = $content->getLanguage();
         $whereFields = [];

@@ -33,7 +33,7 @@ class KeyFigures extends ExportBase
         /** @var Date $startDate */
         $startDateValue = Registry::getRequest()->getRequestEscapedParameter(self::STARTDATE_NAME);
         $startDate = FormFactory::date(
-            Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_STARTDATE'),
+            Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_STARTDATE', null, true),
             [
                 'name'    => self::STARTDATE_NAME,
                 'value'    => $startDateValue
@@ -44,7 +44,7 @@ class KeyFigures extends ExportBase
         /** @var Date $endDate */
         $endDateValue = Registry::getRequest()->getRequestEscapedParameter(self::ENDDATE_NAME);
         $endDate = FormFactory::date(
-            Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_ENDDATE'),
+            Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_ENDDATE', null, true),
             [
                 'name'    => self::ENDDATE_NAME,
                 'value'    => $endDateValue
@@ -58,7 +58,7 @@ class KeyFigures extends ExportBase
      */
     public function getTitle() : string
     {
-        return Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES');
+        return Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES', null, true);
     }
 
     /**
@@ -67,9 +67,9 @@ class KeyFigures extends ExportBase
     public function getQuery() : array
     {
         $orderTable     = oxNew(Order::class)->getCoreTableName();
-        $ordersTitle    = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_ORDERSPERMONTH');
-        $basketsTitle   = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_BASKETSIZE');
-        $monthTitle     = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_MONTH');
+        $ordersTitle    = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_ORDERSPERMONTH', null, true);
+        $basketsTitle   = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_BASKETSIZE', null, true);
+        $monthTitle     = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_MONTH', null, true);
 
         $startDateValue = Registry::getRequest()->getRequestEscapedParameter(self::STARTDATE_NAME) ?: '1970-01-01';
         $endDateValue   = Registry::getRequest()->getRequestEscapedParameter(self::ENDDATE_NAME) ?: date('Y-m-d');

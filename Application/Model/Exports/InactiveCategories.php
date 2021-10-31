@@ -30,7 +30,7 @@ class InactiveCategories extends ExportBase
      */
     public function getTitle() : string
     {
-        return Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES');
+        return Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES', null, true);
     }
 
     /**
@@ -42,9 +42,9 @@ class InactiveCategories extends ExportBase
         $object2categoryTableName   = oxNew(Object2Category::class)->getCoreTableName();
         $articleTableName           = oxNew(Article::class)->getCoreTableName();
 
-        $treeTitle  = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_TREE');
-        $titleTitle = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_TITLE');
-        $countTitle = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_COUNT');
+        $treeTitle  = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_TREE', null, true);
+        $titleTitle = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_TITLE', null, true);
+        $countTitle = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_COUNT', null, true);
 
         return [
             "SELECT
