@@ -31,7 +31,7 @@ class KeyFigures extends ExportBase
     public function __construct()
     {
         /** @var Date $startDate */
-        $startDateValue = Registry::getRequest()->getRequestEscapedParameter(self::STARTDATE_NAME);
+        $startDateValue = Registry::getRequest()->getRequestEscapedParameter(self::STARTDATE_NAME) ?: '1970-01-01';
         $startDate = FormFactory::date(
             Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_STARTDATE', null, true),
             [
@@ -42,7 +42,7 @@ class KeyFigures extends ExportBase
         $this->registerFormElement($startDate);
 
         /** @var Date $endDate */
-        $endDateValue = Registry::getRequest()->getRequestEscapedParameter(self::ENDDATE_NAME);
+        $endDateValue = Registry::getRequest()->getRequestEscapedParameter(self::ENDDATE_NAME) ?: date('Y-m-d');
         $endDate = FormFactory::date(
             Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_ENDDATE', null, true),
             [
