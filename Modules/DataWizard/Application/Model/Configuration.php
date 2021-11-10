@@ -19,6 +19,8 @@ use D3\DataWizardTasks\Application\Model\Actions\FixWysiwygSpecialChars;
 use D3\DataWizardTasks\Application\Model\Exports\DestroyedWysiwygSpecialChars;
 use D3\DataWizardTasks\Application\Model\Exports\InactiveCategories;
 use D3\DataWizardTasks\Application\Model\Exports\KeyFigures;
+use FormManager\Builder;
+use FormManager\Factory;
 
 class Configuration extends Configuration_parent
 {
@@ -30,7 +32,10 @@ class Configuration extends Configuration_parent
         $this->registerAction( ConfigurationParent::GROUP_CMS, oxNew( FixWysiwygSpecialChars::class));
 
         $this->registerExport( ConfigurationParent::GROUP_CATEGORY, oxNew( InactiveCategories::class));
-        $this->registerExport( ConfigurationParent::GROUP_SHOP, oxNew( KeyFigures::class));
+        // incompatible FormManager 5.x
+        if (false === class_exists(Builder::class) && class_exists(Factory::class)) {
+            $this->registerExport( ConfigurationParent::GROUP_SHOP, oxNew( KeyFigures::class ) );
+        }
         $this->registerExport( ConfigurationParent::GROUP_CMS, oxNew( DestroyedWysiwygSpecialChars::class));
     }
 }
