@@ -3,7 +3,7 @@
 
 # D³ Data Wizard Tasks for OXID eShop
 
-This module contains useful sample tasks for the D3 `DataWizard` in the OXID eShop.
+This module contains useful sample tasks for the D3 `DataWizard` in the OXID eShop and acts as an implementation reference for own exports or tasks.
 
 ## Installation
 

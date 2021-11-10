@@ -3,7 +3,7 @@
 
 # D³ Data Wizard Aufgaben für OXID eShop
 
-Dieses Modul enthält nützliche Beispielaufgaben für den D3 `DataWizard` im OXID eShop.
+Dieses Modul enthält nützliche Beispielaufgaben für den D3 `DataWizard` im OXID eShop und dient als Implementierungsreferenz für eigene Exporte oder Tasks.
 
 ## Schnellinstallation
 
