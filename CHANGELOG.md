@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.1.0.0
+## 1.1.0.0 (2021-11-11)
 
 - force get translations from admin
 - initialize form elements with default values for generating prefilled link arguments
