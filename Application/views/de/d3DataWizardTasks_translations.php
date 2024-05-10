@@ -17,7 +17,7 @@ $sLangName = "Deutsch";
 // -------------------------------
 // RESOURCE IDENTITFIER = STRING
 // -------------------------------
-$aLang = array(
+return [
 
 //Navigation
     'charset'                                                       => 'UTF-8',
@@ -41,4 +41,4 @@ $aLang = array(
 
     'D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS'                 => 'fehlende oxartextends-Einträge nachtragen',
     'D3_DATAWIZARDTASKS_ACTIONS_FIXWYSIWYGSPECIALCHARS'             => 'Texte mit zerstörten Sonderzeichen korrigieren',
-);
+];
