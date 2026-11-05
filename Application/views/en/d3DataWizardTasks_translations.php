@@ -42,5 +42,6 @@ return [
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_MONTH'                   => 'month',
 
     'D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS'                 => 'add missing oxartextends entries',
+    'D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS_REQUIRED_FIELDS' => 'The repair was not executed. No initialization is defined for these required oxartextends fields without database defaults: %s.',
     'D3_DATAWIZARDTASKS_ACTIONS_FIXWYSIWYGSPECIALCHARS'             => 'fix texts with destroyed special characters',
 ];

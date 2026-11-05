@@ -16,8 +16,7 @@ declare(strict_types=1);
 namespace D3\DataWizardTasks\Application\Model\Actions;
 
 use D3\DataWizard\Application\Model\ActionBase;
-use OxidEsales\Eshop\Core\Model\BaseModel;
-use OxidEsales\Eshop\Core\Model\MultiLanguageModel;
+use D3\DataWizard\Application\Model\Exceptions\TaskException;
 use OxidEsales\Eshop\Core\Registry;
 
 class FixArtextendsItems extends ActionBase
@@ -39,23 +38,44 @@ class FixArtextendsItems extends ActionBase
      */
     public function getQuery() : array
     {
-        $aDefaultValueFields = array(
-            'oxtimestamp'   => "''",
-        );
+        $connection = $this->getConnection();
+        $queryFields = [$connection->quoteIdentifier('OXID') => 'oa.OXID'];
+        $unsupportedFields = [];
 
-        $aNonArtExtendsFields = array(
-            'oxid'  => 'oxarticles.oxid',
-        );
+        foreach ($this->getArtExtendsColumns() as $column) {
+            $fieldName = $column['field'];
+            $extra = $column['extra'];
+            if (strtolower($fieldName) === 'oxid') {
+                continue;
+            }
 
-        $aArtExtendsFields = array_fill_keys($this->getArtExtendsFields(), "''");
-        $aMergedFields = array_merge($aNonArtExtendsFields, $aArtExtendsFields);
-        $aQueryFields = array_diff_key($aMergedFields, $aDefaultValueFields);
+            // Let the database supply defaults, NULLs and generated values.
+            if ($column['default'] !== null || strtoupper($column['null']) === 'YES' ||
+                stripos($extra, 'auto_increment') !== false ||
+                preg_match('/\b(?:VIRTUAL|STORED|PERSISTENT)\b/i', $extra)) {
+                continue;
+            }
 
-        $sArtExtendsFields = implode(', ', array_keys($aQueryFields));
+            if (preg_match('/^oxlongdesc(?:_[0-9]+)?$/i', $fieldName) &&
+                preg_match('/^(?:tinytext|text|mediumtext|longtext)\b/i', $column['type'])) {
+                $queryFields[$connection->quoteIdentifier($fieldName)] = "''";
+            } else {
+                $unsupportedFields[] = $fieldName;
+            }
+        }
 
-        $select = "SELECT ".implode(', ', $aQueryFields).
-            " FROM oxarticles".
-            " LEFT JOIN oxartextends AS arx ON oxarticles.oxid = arx.oxid".
+        if ($unsupportedFields !== []) {
+            throw new TaskException($this, sprintf(
+                Registry::getLang()->translateString('D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS_REQUIRED_FIELDS', null, true),
+                implode(', ', $unsupportedFields)
+            ));
+        }
+
+        $sArtExtendsFields = implode(', ', array_keys($queryFields));
+
+        $select = "SELECT ".implode(', ', $queryFields).
+            " FROM oxarticles AS oa".
+            " LEFT JOIN oxartextends AS arx ON oa.oxid = arx.oxid".
             " WHERE arx.oxid IS NULL";
 
         $query = "INSERT INTO oxartextends ($sArtExtendsFields) ".
@@ -69,16 +89,7 @@ class FixArtextendsItems extends ActionBase
      */
     public function getArtExtendsFields(): array
     {
-        /** @var $oArtExtends MultiLanguageModel */
-        $oArtExtends = oxNew(BaseModel::class);
-        $oArtExtends->init('oxartextends', false);
-
-        $aFieldNames = $oArtExtends->getFieldNames();
-
-        if (false == $aFieldNames) {
-            $oArtExtends->disableLazyLoading();
-            $aFieldNames = $oArtExtends->getFieldNames();
-        }
+        $aFieldNames = array_map('strtolower', array_column($this->getArtExtendsColumns(), 'field'));
 
         $oxidKey = array_search('oxid', $aFieldNames, true);
         if ($oxidKey !== false) {
@@ -86,5 +97,17 @@ class FixArtextendsItems extends ActionBase
         }
 
         return $aFieldNames;
+    }
+
+    protected function getArtExtendsColumns(): array
+    {
+        $connection = $this->getConnection();
+        $columns = $connection->executeQuery(
+            'SHOW FULL COLUMNS FROM '.$connection->quoteIdentifier('oxartextends')
+        )->fetchAllAssociative();
+
+        return array_map(static function (array $column): array {
+            return array_change_key_case($column, CASE_LOWER);
+        }, $columns);
     }
 }

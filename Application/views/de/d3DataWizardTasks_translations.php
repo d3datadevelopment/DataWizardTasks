@@ -42,5 +42,6 @@ return [
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_MONTH'                   => 'Monat',
 
     'D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS'                 => 'fehlende oxartextends-Einträge nachtragen',
+    'D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS_REQUIRED_FIELDS' => 'Die Reparatur wurde nicht ausgeführt. Für folgende Pflichtfelder in oxartextends ohne Datenbankstandardwert ist keine Initialisierung definiert: %s.',
     'D3_DATAWIZARDTASKS_ACTIONS_FIXWYSIWYGSPECIALCHARS'             => 'Texte mit zerstörten Sonderzeichen korrigieren',
 ];
