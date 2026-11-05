@@ -45,12 +45,27 @@ class DestroyedWysiwygSpecialChars extends ExportBase
         $loadIdTitle = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_LOADID', null, true);
 
         $currentLanguage = $content->getLanguage();
+        $tableAliases = [$contentTableName => 'oc'];
+        $joins = [];
         $whereFields = [];
-        foreach (array_keys(Registry::getLang()->getAllShopLanguageIds()) as $langId) {
-            $content->setLanguage($langId);
-            $whereFields[] = $content->getUpdateSqlFieldName('oxcontent').' LIKE :specialChars';
+        try {
+            foreach (array_keys(Registry::getLang()->getAllShopLanguageIds()) as $langId) {
+                $languageTableName = getLangTableName($contentTableName, $langId);
+                if (!isset($tableAliases[$languageTableName])) {
+                    $alias = 'oc'.count($tableAliases);
+                    $tableAliases[$languageTableName] = $alias;
+                    $joins[] = 'LEFT JOIN '.$connection->quoteIdentifier($languageTableName).' '.$alias.
+                        ' ON '.$alias.'.OXID = oc.OXID';
+                }
+
+                $content->setLanguage($langId);
+                $fieldName = $tableAliases[$languageTableName].'.'.
+                    $connection->quoteIdentifier($content->getUpdateSqlFieldName('oxcontent'));
+                $whereFields[] = $fieldName.' LIKE :specialChars';
+            }
+        } finally {
+            $content->setLanguage($currentLanguage);
         }
-        $content->setLanguage($currentLanguage);
 
         return [
             "SELECT
@@ -58,7 +73,8 @@ class DestroyedWysiwygSpecialChars extends ExportBase
                 oc.OXSHOPID,
                 oc.OXLOADID as ".$connection->quoteIdentifier($loadIdTitle).",
                 oc.OXTITLE as ".$connection->quoteIdentifier($titleTitle)."
-                FROM ".$contentTableName." oc
+                FROM ".$connection->quoteIdentifier($contentTableName)." oc
+                ".implode("\n                ", $joins)."
                 WHERE ".implode(' OR ', $whereFields),
             [
                 'specialChars'      => '%-&gt;%'

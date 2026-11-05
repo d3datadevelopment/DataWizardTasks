@@ -34,21 +34,37 @@ class FixWysiwygSpecialChars extends ActionBase
     {
         $content            = oxNew(Content::class);
         $contentTableName   = $content->getCoreTableName();
+        $connection         = $this->getConnection();
 
         $currentLanguage = $content->getLanguage();
+        $tableAliases = [$contentTableName => 'oc'];
+        $joins = [];
         $updateFields = [];
         $whereFields = [];
-        foreach (array_keys(Registry::getLang()->getAllShopLanguageIds()) as $langId) {
-            $content->setLanguage($langId);
-            $fieldName = $content->getUpdateSqlFieldName('oxcontent');
-            $updateFields[] = 'oc.'.$fieldName.' = REPLACE(oc.'.$fieldName.', :searchSpecialChars, :replaceSpecialChars)';
-            $whereFields[] = $content->getUpdateSqlFieldName('oxcontent').' LIKE :whereSpecialChars';
+        try {
+            foreach (array_keys(Registry::getLang()->getAllShopLanguageIds()) as $langId) {
+                $languageTableName = getLangTableName($contentTableName, $langId);
+                if (!isset($tableAliases[$languageTableName])) {
+                    $alias = 'oc'.count($tableAliases);
+                    $tableAliases[$languageTableName] = $alias;
+                    $joins[] = 'LEFT JOIN '.$connection->quoteIdentifier($languageTableName).' '.$alias.
+                        ' ON '.$alias.'.OXID = oc.OXID';
+                }
+
+                $content->setLanguage($langId);
+                $fieldName = $tableAliases[$languageTableName].'.'.
+                    $connection->quoteIdentifier($content->getUpdateSqlFieldName('oxcontent'));
+                $updateFields[] = $fieldName.' = REPLACE('.$fieldName.', :searchSpecialChars, :replaceSpecialChars)';
+                $whereFields[] = $fieldName.' LIKE :whereSpecialChars';
+            }
+        } finally {
+            $content->setLanguage($currentLanguage);
         }
-        $content->setLanguage($currentLanguage);
 
         return [
             "UPDATE
-                ".$contentTableName." oc
+                ".$connection->quoteIdentifier($contentTableName)." oc
+                ".implode("\n                ", $joins)."
                 SET
                 ".implode(', ', $updateFields)."
                 WHERE ".implode(' OR ', $whereFields),
