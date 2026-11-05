@@ -59,8 +59,8 @@ class InactiveCategories extends ExportBase
                 ) as ".$connection->quoteIdentifier($treeTitle).",
                 COUNT(oa.oxid) as ".$connection->quoteIdentifier($countTitle)."
                 FROM ".$categoryTableName." oc
-                LEFT JOIN ".$object2categoryTableName." o2c ON oc.OXID = o2c.OXCATNID
-                LEFT JOIN ".$articleTableName." oa ON o2c.OXOBJECTID = oa.OXID
+                INNER JOIN ".$object2categoryTableName." o2c ON oc.OXID = o2c.OXCATNID
+                INNER JOIN ".$articleTableName." oa ON o2c.OXOBJECTID = oa.OXID
                 WHERE oc.OXACTIVE = :categoryActive AND oa.OXACTIVE = :articleActive
                 GROUP BY oc.oxid
                 ORDER BY oc.oxleft ASC",
