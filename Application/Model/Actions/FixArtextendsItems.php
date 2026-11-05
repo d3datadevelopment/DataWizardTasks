@@ -80,7 +80,10 @@ class FixArtextendsItems extends ActionBase
             $aFieldNames = $oArtExtends->getFieldNames();
         }
 
-        unset($aFieldNames[array_search('oxid', $aFieldNames)]);
+        $oxidKey = array_search('oxid', $aFieldNames, true);
+        if ($oxidKey !== false) {
+            unset($aFieldNames[$oxidKey]);
+        }
 
         return $aFieldNames;
     }

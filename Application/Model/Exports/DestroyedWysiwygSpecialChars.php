@@ -59,8 +59,7 @@ class DestroyedWysiwygSpecialChars extends ExportBase
                 oc.OXLOADID as ".$connection->quoteIdentifier($loadIdTitle).",
                 oc.OXTITLE as ".$connection->quoteIdentifier($titleTitle)."
                 FROM ".$contentTableName." oc
-                WHERE ".implode(' OR ', $whereFields)."
-                GROUP BY oc.oxloadid",
+                WHERE ".implode(' OR ', $whereFields),
             [
                 'specialChars'      => '%-&gt;%'
             ]

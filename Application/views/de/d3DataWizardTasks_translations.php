@@ -35,6 +35,8 @@ return [
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES'                         => 'Bestellungskennzahlen nach Monat',
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_STARTDATE'         => 'Startdatum (optional)',
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_ENDDATE'           => 'Enddatum (optional)',
+    'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_INVALID_DATE'            => 'Bitte gültige Datumswerte im Format JJJJ-MM-TT eingeben.',
+    'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_INVALID_DATE_RANGE'      => 'Das Startdatum darf nicht nach dem Enddatum liegen.',
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_ORDERSPERMONTH'          => 'Bestellungen pro Monat',
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_BASKETSIZE'              => 'Warenkorbhöhe',
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_MONTH'                   => 'Monat',

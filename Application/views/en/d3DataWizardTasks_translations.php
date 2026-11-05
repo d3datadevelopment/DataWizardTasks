@@ -35,6 +35,8 @@ return [
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES'                         => 'Order key figures by month',
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_STARTDATE'         => 'start date (optional)',
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_ENDDATE'           => 'end date (optional)',
+    'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_INVALID_DATE'            => 'Please enter valid dates in YYYY-MM-DD format.',
+    'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_INVALID_DATE_RANGE'      => 'The start date must not be after the end date.',
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_ORDERSPERMONTH'          => 'orders per month',
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_BASKETSIZE'              => 'shopping cart value',
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_MONTH'                   => 'month',
