@@ -39,6 +39,7 @@ class DestroyedWysiwygSpecialChars extends ExportBase
     {
         $content            = oxNew(Content::class);
         $contentTableName   = $content->getCoreTableName();
+        $connection         = $this->getConnection();
 
         $titleTitle = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_TITLE', null, true);
         $loadIdTitle = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_LOADID', null, true);
@@ -55,15 +56,13 @@ class DestroyedWysiwygSpecialChars extends ExportBase
             "SELECT
                 oc.OXID,
                 oc.OXSHOPID,
-                oc.OXLOADID as :loadId,
-                oc.OXTITLE as :titleTitle
+                oc.OXLOADID as ".$connection->quoteIdentifier($loadIdTitle).",
+                oc.OXTITLE as ".$connection->quoteIdentifier($titleTitle)."
                 FROM ".$contentTableName." oc
                 WHERE ".implode(' OR ', $whereFields)."
                 GROUP BY oc.oxloadid",
             [
-                'specialChars'      => '%-&gt;%',
-                'loadId'            => $loadIdTitle,
-                'titleTitle'        => $titleTitle
+                'specialChars'      => '%-&gt;%'
             ]
         ];
     }

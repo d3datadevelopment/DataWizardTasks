@@ -67,6 +67,7 @@ class KeyFigures extends ExportBase
     public function getQuery() : array
     {
         $orderTable     = oxNew(Order::class)->getCoreTableName();
+        $connection     = $this->getConnection();
         $ordersTitle    = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_ORDERSPERMONTH', null, true);
         $basketsTitle   = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_BASKETSIZE', null, true);
         $monthTitle     = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_MONTH', null, true);
@@ -76,9 +77,9 @@ class KeyFigures extends ExportBase
 
         return [
             'SELECT
-                DATE_FORMAT(oo.oxorderdate, "%Y-%m") as :monthTitle, 
-                FORMAT(COUNT(oo.oxid), 0) AS :ordersTitle, 
-                FORMAT(SUM(oo.OXTOTALBRUTSUM / oo.oxcurrate) / COUNT(oo.oxid), 2) as :basketsTitle 
+                DATE_FORMAT(oo.oxorderdate, "%Y-%m") as '.$connection->quoteIdentifier($monthTitle).', 
+                FORMAT(COUNT(oo.oxid), 0) AS '.$connection->quoteIdentifier($ordersTitle).', 
+                FORMAT(SUM(oo.OXTOTALBRUTSUM / oo.oxcurrate) / COUNT(oo.oxid), 2) as '.$connection->quoteIdentifier($basketsTitle).' 
             FROM '.$orderTable.' AS oo
             WHERE oo.oxorderdate >= :startDate AND oo.oxorderdate <= :endDate
             GROUP BY DATE_FORMAT(oo.oxorderdate, "%Y-%m")
@@ -86,10 +87,7 @@ class KeyFigures extends ExportBase
             LIMIT 30',
             [
                 'startDate'     => $startDateValue,
-                'endDate'       => $endDateValue,
-                'monthTitle'    => $monthTitle,
-                'ordersTitle'   => $ordersTitle,
-                'basketsTitle'  => $basketsTitle
+                'endDate'       => $endDateValue
             ]
         ];
     }

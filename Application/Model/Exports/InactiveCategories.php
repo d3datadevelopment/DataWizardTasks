@@ -41,6 +41,7 @@ class InactiveCategories extends ExportBase
         $categoryTableName          = oxNew(Category::class)->getCoreTableName();
         $object2categoryTableName   = oxNew(Object2Category::class)->getCoreTableName();
         $articleTableName           = oxNew(Article::class)->getCoreTableName();
+        $connection                = $this->getConnection();
 
         $treeTitle  = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_TREE', null, true);
         $titleTitle = Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_TITLE', null, true);
@@ -50,13 +51,13 @@ class InactiveCategories extends ExportBase
             "SELECT
                 oc.OXID,
                 oc.OXSHOPID,
-                oc.oxtitle as :titleTitle,
+                oc.oxtitle as ".$connection->quoteIdentifier($titleTitle).",
                 (
                     SELECT GROUP_CONCAT(oxtitle ORDER BY oxleft ASC SEPARATOR ' > ') 
                     from ".$categoryTableName." 
                     WHERE OXLEFT < oc.oxleft AND OXRIGHT > oc.oxright AND OXROOTID = oc.OXROOTID AND OXSHOPID = oc.OXSHOPID
-                ) as :treeTitle,
-                COUNT(oa.oxid) as :countTitle
+                ) as ".$connection->quoteIdentifier($treeTitle).",
+                COUNT(oa.oxid) as ".$connection->quoteIdentifier($countTitle)."
                 FROM ".$categoryTableName." oc
                 LEFT JOIN ".$object2categoryTableName." o2c ON oc.OXID = o2c.OXCATNID
                 LEFT JOIN ".$articleTableName." oa ON o2c.OXOBJECTID = oa.OXID
@@ -65,10 +66,7 @@ class InactiveCategories extends ExportBase
                 ORDER BY oc.oxleft ASC",
             [
                 'categoryActive'    => 0,
-                'articleActive'     => 1,
-                'titleTitle'        => $titleTitle,
-                'treeTitle'         => $treeTitle,
-                'countTitle'        => $countTitle
+                'articleActive'     => 1
             ]
         ];
     }
