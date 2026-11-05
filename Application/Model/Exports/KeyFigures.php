@@ -14,6 +14,7 @@
 namespace D3\DataWizardTasks\Application\Model\Exports;
 
 use D3\DataWizard\Application\Model\ExportBase;
+use DateTimeImmutable;
 use FormManager\Inputs\Date;
 use OxidEsales\Eshop\Application\Model\Order;
 use OxidEsales\Eshop\Core\Registry;
@@ -74,6 +75,7 @@ class KeyFigures extends ExportBase
 
         $startDateValue = Registry::getRequest()->getRequestEscapedParameter(self::STARTDATE_NAME) ?: '1970-01-01';
         $endDateValue   = Registry::getRequest()->getRequestEscapedParameter(self::ENDDATE_NAME) ?: date('Y-m-d');
+        $endExclusive = (new DateTimeImmutable($endDateValue))->modify('+1 day')->format('Y-m-d');
 
         return [
             'SELECT
@@ -81,13 +83,13 @@ class KeyFigures extends ExportBase
                 FORMAT(COUNT(oo.oxid), 0) AS '.$connection->quoteIdentifier($ordersTitle).', 
                 FORMAT(SUM(oo.OXTOTALBRUTSUM / oo.oxcurrate) / COUNT(oo.oxid), 2) as '.$connection->quoteIdentifier($basketsTitle).' 
             FROM '.$orderTable.' AS oo
-            WHERE oo.oxorderdate >= :startDate AND oo.oxorderdate <= :endDate
+            WHERE oo.oxorderdate >= :startDate AND oo.oxorderdate < :endExclusive
             GROUP BY DATE_FORMAT(oo.oxorderdate, "%Y-%m")
             ORDER BY DATE_FORMAT(oo.oxorderdate, "%Y-%m") DESC
             LIMIT 30',
             [
                 'startDate'     => $startDateValue,
-                'endDate'       => $endDateValue
+                'endExclusive'  => $endExclusive
             ]
         ];
     }
