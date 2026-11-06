@@ -1,0 +1,35 @@
+services:
+  _defaults:
+    autowire: false
+    public: true
+
+  D3\DataWizardTasks\Application\Model\Actions\FixArtextendsItems:
+    shared: false
+    factory: 'oxNew'
+    arguments: ['D3\DataWizardTasks\Application\Model\Actions\FixArtextendsItems']
+    tags: ['d3.datawizard.action']
+
+  D3\DataWizardTasks\Application\Model\Actions\FixWysiwygSpecialChars:
+    shared: false
+    factory: 'oxNew'
+    arguments: ['D3\DataWizardTasks\Application\Model\Actions\FixWysiwygSpecialChars']
+    tags: ['d3.datawizard.action']
+
+  D3\DataWizardTasks\Application\Model\Exports\InactiveCategories:
+    shared: false
+    factory: 'oxNew'
+    arguments: ['D3\DataWizardTasks\Application\Model\Exports\InactiveCategories']
+    tags: ['d3.datawizard.export']
+
+  D3\DataWizardTasks\Application\Model\Exports\KeyFigures:
+    shared: false
+    factory: 'oxNew'
+    arguments: ['D3\DataWizardTasks\Application\Model\Exports\KeyFigures']
+    tags: ['d3.datawizard.export']
+
+  D3\DataWizardTasks\Application\Model\Exports\DestroyedWysiwygSpecialChars:
+    shared: false
+    factory: 'oxNew'
+    arguments: ['D3\DataWizardTasks\Application\Model\Exports\DestroyedWysiwygSpecialChars']
+    tags: ['d3.datawizard.export']
+

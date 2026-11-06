@@ -23,6 +23,16 @@ use FormManager\Factory as FormFactory;
 
 class KeyFigures extends ExportBase
 {
+    public function getTaskId(): string
+    {
+        return 'd3_key_figures';
+    }
+
+    public function getGroup(): string
+    {
+        return \D3\DataWizard\Application\Model\Configuration::GROUP_SHOP;
+    }
+
     const STARTDATE_NAME = 'startdate';
     const ENDDATE_NAME = 'enddate';
 

@@ -19,6 +19,16 @@ use OxidEsales\Eshop\Core\Registry;
 
 class FixWysiwygSpecialChars extends ActionBase
 {
+    public function getTaskId(): string
+    {
+        return 'd3_fix_wysiwyg';
+    }
+
+    public function getGroup(): string
+    {
+        return \D3\DataWizard\Application\Model\Configuration::GROUP_CMS;
+    }
+
     /**
      * @return string
      */

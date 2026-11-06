@@ -19,6 +19,16 @@ use OxidEsales\Eshop\Core\Registry;
 
 class DestroyedWysiwygSpecialChars extends ExportBase
 {
+    public function getTaskId(): string
+    {
+        return 'd3_damaged_wysiwyg';
+    }
+
+    public function getGroup(): string
+    {
+        return \D3\DataWizard\Application\Model\Configuration::GROUP_CMS;
+    }
+
     /**
      * @return string
      */

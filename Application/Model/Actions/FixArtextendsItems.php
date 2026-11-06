@@ -22,6 +22,16 @@ use OxidEsales\Eshop\Core\Registry;
 
 class FixArtextendsItems extends ActionBase
 {
+    public function getTaskId(): string
+    {
+        return 'd3_fix_artextends';
+    }
+
+    public function getGroup(): string
+    {
+        return \D3\DataWizard\Application\Model\Configuration::GROUP_ARTICLES;
+    }
+
     private const FALLBACK_FIELD = 'd3_fixartextends_fallback';
     private bool $useFallbackValues;
 

@@ -21,6 +21,16 @@ use OxidEsales\Eshop\Core\Registry;
 
 class InactiveCategories extends ExportBase
 {
+    public function getTaskId(): string
+    {
+        return 'd3_inactive_categories';
+    }
+
+    public function getGroup(): string
+    {
+        return \D3\DataWizard\Application\Model\Configuration::GROUP_CATEGORY;
+    }
+
     /**
      * Kategorien -deaktiviert, mit aktiven Artikeln
      */
