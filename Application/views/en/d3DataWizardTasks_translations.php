@@ -43,5 +43,6 @@ return [
 
     'D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS'                 => 'add missing oxartextends entries',
     'D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS_REQUIRED_FIELDS' => 'The repair was not executed. No initialization is defined for these required oxartextends fields without database defaults: %s.',
+    'D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS_FALLBACK'       => 'Fill missing required fields with type-specific placeholder values. These values may not be appropriate for your data.',
     'D3_DATAWIZARDTASKS_ACTIONS_FIXWYSIWYGSPECIALCHARS'             => 'fix texts with destroyed special characters',
 ];

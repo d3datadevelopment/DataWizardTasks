@@ -17,10 +17,24 @@ namespace D3\DataWizardTasks\Application\Model\Actions;
 
 use D3\DataWizard\Application\Model\ActionBase;
 use D3\DataWizard\Application\Model\Exceptions\TaskException;
+use FormManager\Factory as FormFactory;
 use OxidEsales\Eshop\Core\Registry;
 
 class FixArtextendsItems extends ActionBase
 {
+    private const FALLBACK_FIELD = 'd3_fixartextends_fallback';
+    private bool $useFallbackValues;
+
+    public function __construct()
+    {
+        $this->useFallbackValues = Registry::getRequest()->getRequestEscapedParameter(self::FALLBACK_FIELD) === 'on';
+        $checkbox = FormFactory::checkbox(
+            Registry::getLang()->translateString('D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS_FALLBACK', null, true),
+            ['name' => self::FALLBACK_FIELD]
+        );
+        $checkbox->setValue($this->useFallbackValues);
+        $this->registerFormElement($checkbox);
+    }
     /**
      * fehlende oxartextends-Einträge nachtragen
      */
@@ -40,35 +54,19 @@ class FixArtextendsItems extends ActionBase
     {
         $connection = $this->getConnection();
         $queryFields = [$connection->quoteIdentifier('OXID') => 'oa.OXID'];
-        $unsupportedFields = [];
 
         foreach ($this->getArtExtendsColumns() as $column) {
             $fieldName = $column['field'];
-            $extra = $column['extra'];
             if (strtolower($fieldName) === 'oxid') {
                 continue;
             }
 
-            // Let the database supply defaults, NULLs and generated values.
-            if ($column['default'] !== null || strtoupper($column['null']) === 'YES' ||
-                stripos($extra, 'auto_increment') !== false ||
-                preg_match('/\b(?:VIRTUAL|STORED|PERSISTENT)\b/i', $extra)) {
-                continue;
+            if ($this->requiresInitialization($column)) {
+                $value = $this->initialValue($column);
+                if ($value !== null) {
+                    $queryFields[$connection->quoteIdentifier($fieldName)] = $value;
+                }
             }
-
-            if (preg_match('/^oxlongdesc(?:_[0-9]+)?$/i', $fieldName) &&
-                preg_match('/^(?:tinytext|text|mediumtext|longtext)\b/i', $column['type'])) {
-                $queryFields[$connection->quoteIdentifier($fieldName)] = "''";
-            } else {
-                $unsupportedFields[] = $fieldName;
-            }
-        }
-
-        if ($unsupportedFields !== []) {
-            throw new TaskException($this, sprintf(
-                Registry::getLang()->translateString('D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS_REQUIRED_FIELDS', null, true),
-                implode(', ', $unsupportedFields)
-            ));
         }
 
         $sArtExtendsFields = implode(', ', array_keys($queryFields));
@@ -82,6 +80,68 @@ class FixArtextendsItems extends ActionBase
             $select;
 
         return [$query, []];
+    }
+
+    public function executeAction(array $query): void
+    {
+        $this->clearActionResult();
+        $unsupportedFields = [];
+        foreach ($this->getArtExtendsColumns() as $column) {
+            $fieldName = $column['field'];
+            if (strtolower($fieldName) === 'oxid' || !$this->requiresInitialization($column)) {
+                continue;
+            }
+            if ($this->initialValue($column) === null) {
+                $unsupportedFields[] = $fieldName;
+            }
+        }
+
+        if ($unsupportedFields !== []) {
+            throw new TaskException($this, sprintf(
+                Registry::getLang()->translateString('D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS_REQUIRED_FIELDS', null, true),
+                implode(', ', $unsupportedFields)
+            ));
+        }
+
+        parent::executeAction($query);
+    }
+
+    private function requiresInitialization(array $column): bool
+    {
+        return $column['default'] === null && strtoupper($column['null']) !== 'YES' &&
+            stripos($column['extra'], 'auto_increment') === false &&
+            !preg_match('/\b(?:VIRTUAL|STORED|PERSISTENT)\b/i', $column['extra']);
+    }
+
+    private function initialValue(array $column): ?string
+    {
+        $type = $column['type'];
+        if (preg_match('/^oxlongdesc(?:_[0-9]+)?$/i', $column['field']) &&
+            preg_match('/^(?:tinytext|text|mediumtext|longtext)\b/i', $type)) {
+            return "''";
+        }
+        if (!$this->useFallbackValues) {
+            return null;
+        }
+        if (preg_match('/^(?:char|varchar|tinytext|text|mediumtext|longtext|binary|varbinary|tinyblob|blob|mediumblob|longblob)\b/i', $type)) {
+            return "''";
+        }
+        if (preg_match('/^(?:tinyint|smallint|mediumint|int|integer|bigint|decimal|numeric|float|double|real|bit|bool|boolean)\b/i', $type)) {
+            return '0';
+        }
+        if (preg_match('/^date\b/i', $type)) {
+            return "'1970-01-01'";
+        }
+        if (preg_match('/^(?:datetime|timestamp)\b/i', $type)) {
+            return "'1970-01-02 00:00:00'";
+        }
+        if (preg_match('/^time\b/i', $type)) {
+            return "'00:00:00'";
+        }
+        if (preg_match('/^year\b/i', $type)) {
+            return '1970';
+        }
+        return null;
     }
 
     /**
