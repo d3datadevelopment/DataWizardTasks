@@ -133,8 +133,7 @@ class KeyFigures extends ExportBase
             FROM '.$orderTable.' AS oo
             WHERE oo.oxorderdate >= :startDate AND oo.oxorderdate < :endExclusive
             GROUP BY DATE_FORMAT(oo.oxorderdate, "%Y-%m")
-            ORDER BY DATE_FORMAT(oo.oxorderdate, "%Y-%m") DESC
-            LIMIT 30',
+            ORDER BY DATE_FORMAT(oo.oxorderdate, "%Y-%m") DESC',
             [
                 'startDate'     => $this->startDateValue,
                 'endExclusive'  => $endExclusive
