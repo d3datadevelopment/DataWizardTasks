@@ -1,0 +1,45 @@
+{
+  "source": {
+    "directories": [
+      "vendor/d3/datawizardtasks/Application",
+      "vendor/d3/datawizardtasks/Modules"
+    ]
+  },
+  "bootstrap": "vendor/d3/datawizardtasks/.ci-tools/infection-bootstrap.php",
+  "timeout": 30,
+  "logs": {
+    "json": "../../../../reports/infection/datawizardtasks/infection.json",
+    "html": "../../../../reports/infection/datawizardtasks/infection.html"
+  },
+  "mutators": {
+    "@default": true,
+    "CastString": {
+      "ignore": [
+        "D3\\DataWizardTasks\\Application\\Model\\Exports\\PhpRuntimeInfo::getExportData"
+      ]
+    },
+    "PregMatchRemoveCaret": {
+      "ignore": [
+        "D3\\DataWizardTasks\\Application\\Model\\Exports\\KeyFigures::parseDate",
+        "D3\\DataWizardTasks\\Application\\Model\\Actions\\FixArtextendsItems::initialValue"
+      ]
+    },
+    "PregMatchRemoveDollar": {
+      "ignore": [
+        "D3\\DataWizardTasks\\Application\\Model\\Exports\\KeyFigures::parseDate"
+      ]
+    },
+    "PregMatchRemoveFlags": {
+      "ignore": [
+        "D3\\DataWizardTasks\\Application\\Model\\Exports\\KeyFigures::parseDate"
+      ]
+    },
+    "FalseValue": {
+      "ignore": [
+        "D3\\DataWizardTasks\\Application\\Model\\Exports\\KeyFigures::parseDate"
+      ]
+    }
+  },
+  "testFramework": "phpunit",
+  "testFrameworkOptions": "--configuration=vendor/d3/datawizardtasks/.ci-tools/phpunit.xml"
+}
