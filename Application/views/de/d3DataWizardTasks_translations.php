@@ -42,6 +42,7 @@ return [
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_MONTH'                   => 'Monat',
     'D3_DATAWIZARDTASKS_EXPORTS_PHP_RUNTIME_INFO'                   => 'PHP-Laufzeitinformationen (ohne SQL)',
     'D3_DATAWIZARDTASKS_EXPORTS_PHP_RUNTIME_INFO_DESC'              => 'Demonstriert einen Export, der seine Daten direkt aus PHP bezieht. Die Abfragevorschau ist für diesen Export nicht verfügbar.',
+    'D3_DATAWIZARDTASKS_EXPORT_FORMAT_JSONL'                        => 'JSONL (eine JSON-Zeile pro Datensatz)',
 
     'D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS'                 => 'fehlende oxartextends-Einträge nachtragen',
     'D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS_REQUIRED_FIELDS' => 'Die Reparatur wurde nicht ausgeführt. Für folgende Pflichtfelder in oxartextends ohne Datenbankstandardwert ist keine Initialisierung definiert: %s.',

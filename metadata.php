@@ -18,7 +18,9 @@ declare(strict_types=1);
  */
 
 use D3\DataWizard\Application\Model\Configuration as ConfigurationParent;
+use D3\DataWizard\Application\Model\ExportRenderer\RendererBridge as RendererBridgeParent;
 use D3\DataWizardTasks\Modules\DataWizard\Application\Model\Configuration;
+use D3\DataWizardTasks\Modules\DataWizard\Application\Model\ExportRendererBridge;
 
 $sMetadataVersion = '2.1';
 
@@ -31,8 +33,8 @@ $logo = '(D3) ';
 $aModule = [
     'id'          => $sModuleId,
     'title'       => [
-        'de'    => $logo.' Data Wizard - Exporte und Aktionen',
-        'en'    => $logo.' Data Wizard - exports and actions'
+        'de'    => $logo.' Data Wizard - Exporte, Aktionen und Renderer',
+        'en'    => $logo.' Data Wizard - exports, actions and renderers'
     ],
     'description' => [
         'de'    => '',
@@ -45,7 +47,8 @@ $aModule = [
     'url'         => 'https://www.oxidmodule.com/',
     'controllers' => [],
     'extend'      => [
-        ConfigurationParent::class => Configuration::class
+        ConfigurationParent::class => Configuration::class,
+        RendererBridgeParent::class => ExportRendererBridge::class
     ],
     'events'      => [],
     'templates'   => [],

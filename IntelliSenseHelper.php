@@ -14,6 +14,9 @@
 namespace D3\DataWizardTasks\Modules\DataWizard\Application\Model {
 
     use D3\DataWizard\Application\Model\Configuration;
+    use D3\DataWizard\Application\Model\ExportRenderer\RendererBridge;
 
     class Configuration_parent extends Configuration{}
+
+    class ExportRendererBridge_parent extends RendererBridge {}
 }
