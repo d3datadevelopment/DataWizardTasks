@@ -128,8 +128,8 @@ class KeyFigures extends ExportBase
         return [
             'SELECT
                 DATE_FORMAT(oo.oxorderdate, "%Y-%m") as '.$connection->quoteIdentifier($monthTitle).', 
-                FORMAT(COUNT(oo.oxid), 0) AS '.$connection->quoteIdentifier($ordersTitle).', 
-                FORMAT(SUM(oo.OXTOTALBRUTSUM / oo.oxcurrate) / COUNT(oo.oxid), 2) as '.$connection->quoteIdentifier($basketsTitle).' 
+                COUNT(oo.oxid) AS '.$connection->quoteIdentifier($ordersTitle).', 
+                ROUND(SUM(oo.OXTOTALBRUTSUM / oo.oxcurrate) / COUNT(oo.oxid), 2) as '.$connection->quoteIdentifier($basketsTitle).' 
             FROM '.$orderTable.' AS oo
             WHERE oo.oxorderdate >= :startDate AND oo.oxorderdate < :endExclusive
             GROUP BY DATE_FORMAT(oo.oxorderdate, "%Y-%m")
