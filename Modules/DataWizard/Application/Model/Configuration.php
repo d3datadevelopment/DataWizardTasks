@@ -19,6 +19,7 @@ use D3\DataWizardTasks\Application\Model\Actions\FixWysiwygSpecialChars;
 use D3\DataWizardTasks\Application\Model\Exports\DestroyedWysiwygSpecialChars;
 use D3\DataWizardTasks\Application\Model\Exports\InactiveCategories;
 use D3\DataWizardTasks\Application\Model\Exports\KeyFigures;
+use D3\DataWizardTasks\Application\Model\Exports\PhpRuntimeInfo;
 
 class Configuration extends Configuration_parent
 {
@@ -31,6 +32,7 @@ class Configuration extends Configuration_parent
 
         $this->registerExport( ConfigurationParent::GROUP_CATEGORY, oxNew( InactiveCategories::class));
         $this->registerExport( ConfigurationParent::GROUP_SHOP, oxNew( KeyFigures::class));
+        $this->registerExport( ConfigurationParent::GROUP_SHOP, oxNew( PhpRuntimeInfo::class));
         $this->registerExport( ConfigurationParent::GROUP_CMS, oxNew( DestroyedWysiwygSpecialChars::class));
     }
 }
