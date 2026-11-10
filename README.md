@@ -10,10 +10,21 @@ Dieses Modul enthält nützliche Beispielaufgaben für den D3 `DataWizard` im OX
 Auf der Konsole im Shoproot (oberhalb von source und vendor) folgenden Befehl ausführen:
 
 ```bash
-php composer require d3/datawizardtasks
+composer require d3/datawizardtasks
 ``` 
 
-Aktivieren Sie das Modul im Shopadmin unter "Erweiterungen -> Module".
+Aktivieren Sie DataWizard und dieses Modul im Shopadmin unter "Erweiterungen -> Module". Die Beispiele für querylose Exporte und Streaming-Renderer benötigen einen DataWizard-Stand mit `hasQuery()` beziehungsweise Unterstützung für eigene `StreamingRendererInterface`-Renderer; die Composer-Vorgabe `^3.0` allein stellt diese Fähigkeiten nicht sicher.
+
+## Enthaltene Beispiele
+
+- **Inaktive Kategorien:** listet deaktivierte Kategorien mit direkt zugeordneten Artikeln, deren `OXACTIVE`-Flag gesetzt ist.
+- **Bestellungskennzahlen nach Monat:** zählt Bestellungen und berechnet eine durchschnittliche Warenkorbhöhe für den gewählten Zeitraum. Der Endtag ist eingeschlossen; die Beispielabfrage filtert nicht nach Shop oder Stornostatus. Zahlen werden im SQL-Ergebnis numerisch zurückgegeben; die Darstellung hängt von Treiber und Exportformat ab.
+- **CMS-Sonderzeichen:** ein Export findet Inhalte mit `-&gt;`; eine Aktion ersetzt diese Zeichenfolge durch `->` in den berücksichtigten Sprachfeldern.
+- **Fehlende `oxartextends`-Einträge:** die Aktion ergänzt Datensätze für Artikel ohne zugehörigen Eintrag. Unbekannte Pflichtfelder ohne Standardwert verhindern die Query-Erzeugung und Ausführung. Eine standardmäßig deaktivierte Checkbox erlaubt Platzhalter für unterstützte Datentypen; diese können fachlich unpassend sein. Nicht unterstützte Typen bleiben gesperrt.
+- **PHP-Laufzeitinformationen:** ein Export ohne SQL zeigt ausgewählte PHP-Einstellungen und Erweiterungen des ausführenden Prozesses. Die Ausgabe kann technische Informationen enthalten.
+- **JSON Lines:** ein Renderer stellt JSONL als zusätzliches Exportformat bereit; jede Zeile enthält einen Datensatz als JSON.
+
+Die Profile sind Beispiele und können Shop- oder Modulbesonderheiten nicht allgemein berücksichtigen. Prüfen Sie insbesondere datenverändernde Aktionen und Platzhalter vor dem produktiven Einsatz in einer Testumgebung.
 
 ## Eigene Exporte, Aktionen und Exportformate entwickeln
 

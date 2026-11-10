@@ -10,6 +10,8 @@ All notable changes to this project are documented in this file. The format is b
 - Allow operators to opt in to type-specific placeholder values for supported required `oxartextends` fields.
 - Add a PHP runtime information export without SQL and a JSON Lines renderer as integration examples.
 - Add PHPUnit configuration and tests for the new examples, query capability and native prepared statements.
+- Add Infection configuration, a bootstrap for OXID parent classes and documented mutation-testing exceptions.
+- Add PHP CS Fixer configuration for the package.
 
 ### Changed
 

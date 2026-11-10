@@ -10,10 +10,21 @@ This module contains useful sample tasks for the D3 `DataWizard` in the OXID eSh
 In the console in the shop root (above source and vendor), execute the following command:
 
 ```bash
-php composer require d3/datawizardtasks
+composer require d3/datawizardtasks
 ``` 
 
-Activate the module in the admin area of the shop in "Extensions -> Modules".
+Activate DataWizard and this module in the shop administration area under "Extensions -> Modules". The examples for queryless exports and streaming renderers need a DataWizard version with `hasQuery()` and support for custom `StreamingRendererInterface` renderers respectively; the Composer constraint `^3.0` alone does not guarantee these capabilities.
+
+## Included examples
+
+- **Inactive categories:** lists inactive categories with directly assigned articles whose `OXACTIVE` flag is set.
+- **Order figures by month:** counts orders and calculates an average basket value for the selected period. The end date is inclusive; the example query does not filter by shop or cancellation status. SQL results are numeric; presentation depends on the driver and export format.
+- **CMS special characters:** an export finds content containing `-&gt;`; an action replaces that sequence with `->` in the language fields it processes.
+- **Missing `oxartextends` records:** an action adds records for articles without a matching entry. Unknown required fields without defaults prevent query generation and execution. An unchecked-by-default option enables placeholders for supported data types; these may be inappropriate for the data. Unsupported types remain blocked.
+- **PHP runtime information:** a queryless export reports selected PHP settings and extensions of the executing process. Its output can contain technical information.
+- **JSON Lines:** a renderer adds JSONL as an export format, with one JSON record per line.
+
+These profiles are examples and cannot account for every shop or module customization. Check data-changing actions and placeholders in a test environment before production use.
 
 ## Developing custom exports, actions, and export formats
 
