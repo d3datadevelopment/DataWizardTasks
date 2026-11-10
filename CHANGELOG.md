@@ -8,17 +8,20 @@ All notable changes to this project are documented in this file. The format is b
 
 - Document how to register custom exports, actions and export renderers in a customer-specific module.
 - Allow operators to opt in to type-specific placeholder values for supported required `oxartextends` fields.
+- Add a PHP runtime information export without SQL and a JSON Lines renderer as integration examples.
+- Add PHPUnit configuration and tests for the new examples, query capability and native prepared statements.
 
 ### Changed
 
 - Remove the 30-month limit from the key figures export.
+- Return numeric SQL results for order counts and rounded average basket values in the key figures export.
 - Simplify category joins in the inactive categories export.
 
 ### Fixed
 
 - Validate key figures date inputs and include the entire selected end date.
 - Support CMS content stored in separate language tables in the special-character export and repair action.
-- Respect column types and database defaults when repairing missing `oxartextends` records, and keep the SQL preview available when required fields cannot be initialized.
+- Respect column types and database defaults when repairing missing `oxartextends` records; reject unsupported required fields during query generation and before execution.
 - Quote SQL aliases in example exports.
 
 ## [2.0.0.0] - 2024-05-13
