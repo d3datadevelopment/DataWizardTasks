@@ -52,10 +52,13 @@ class FixArtextendsItems extends ActionBase
      */
     public function getQuery() : array
     {
+        $columns = $this->getArtExtendsColumns();
+        $this->assertSupportedRequiredFields($columns);
+
         $connection = $this->getConnection();
         $queryFields = [$connection->quoteIdentifier('OXID') => 'oa.OXID'];
 
-        foreach ($this->getArtExtendsColumns() as $column) {
+        foreach ($columns as $column) {
             $fieldName = $column['field'];
             if (strtolower($fieldName) === 'oxid') {
                 continue;
@@ -85,8 +88,15 @@ class FixArtextendsItems extends ActionBase
     public function executeAction(array $query): void
     {
         $this->clearActionResult();
+        $this->assertSupportedRequiredFields($this->getArtExtendsColumns());
+
+        parent::executeAction($query);
+    }
+
+    private function assertSupportedRequiredFields(array $columns): void
+    {
         $unsupportedFields = [];
-        foreach ($this->getArtExtendsColumns() as $column) {
+        foreach ($columns as $column) {
             $fieldName = $column['field'];
             if (strtolower($fieldName) === 'oxid' || !$this->requiresInitialization($column)) {
                 continue;
@@ -102,8 +112,6 @@ class FixArtextendsItems extends ActionBase
                 implode(', ', $unsupportedFields)
             ));
         }
-
-        parent::executeAction($query);
     }
 
     private function requiresInitialization(array $column): bool
