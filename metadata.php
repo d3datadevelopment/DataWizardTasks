@@ -34,7 +34,7 @@ $aModule = [
     'id'          => $sModuleId,
     'title'       => [
         'de'    => $logo.' Data Wizard - Exporte, Aktionen und Renderer',
-        'en'    => $logo.' Data Wizard - exports, actions and renderers'
+        'en'    => $logo.' Data Wizard - exports, actions and renderers',
     ],
     'description' => [
         'de'    => '',
@@ -48,10 +48,10 @@ $aModule = [
     'controllers' => [],
     'extend'      => [
         ConfigurationParent::class => Configuration::class,
-        RendererBridgeParent::class => ExportRendererBridge::class
+        RendererBridgeParent::class => ExportRendererBridge::class,
     ],
     'events'      => [],
     'templates'   => [],
     'settings'    => [],
-    'blocks'      => []
+    'blocks'      => [],
 ];

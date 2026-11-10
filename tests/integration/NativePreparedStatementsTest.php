@@ -24,6 +24,9 @@ use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidEsales\EshopCommunity\Internal\Framework\Database\ConnectionProviderInterface;
 use PDO;
 
+/**
+ * @coversNothing
+ */
 class NativePreparedStatementsTest extends d3ModCfgUnitTestCase
 {
     private Connection $connection;

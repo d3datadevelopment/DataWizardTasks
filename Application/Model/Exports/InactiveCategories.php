@@ -28,7 +28,7 @@ class InactiveCategories extends ExportBase
     /**
      * @return string
      */
-    public function getTitle() : string
+    public function getTitle(): string
     {
         return Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES', null, true);
     }
@@ -36,7 +36,7 @@ class InactiveCategories extends ExportBase
     /**
      * @return array
      */
-    public function getQuery() : array
+    public function getQuery(): array
     {
         $categoryTableName          = oxNew(Category::class)->getCoreTableName();
         $object2categoryTableName   = oxNew(Object2Category::class)->getCoreTableName();
@@ -66,8 +66,8 @@ class InactiveCategories extends ExportBase
                 ORDER BY oc.oxleft ASC",
             [
                 'categoryActive'    => 0,
-                'articleActive'     => 1
-            ]
+                'articleActive'     => 1,
+            ],
         ];
     }
 }

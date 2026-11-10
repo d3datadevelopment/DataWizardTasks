@@ -22,7 +22,7 @@ class FixWysiwygSpecialChars extends ActionBase
     /**
      * @return string
      */
-    public function getTitle() : string
+    public function getTitle(): string
     {
         return Registry::getLang()->translateString('D3_DATAWIZARDTASKS_ACTIONS_FIXWYSIWYGSPECIALCHARS', null, true);
     }
@@ -30,7 +30,7 @@ class FixWysiwygSpecialChars extends ActionBase
     /**
      * @return array
      */
-    public function getQuery() : array
+    public function getQuery(): array
     {
         $content            = oxNew(Content::class);
         $contentTableName   = $content->getCoreTableName();
@@ -71,8 +71,8 @@ class FixWysiwygSpecialChars extends ActionBase
             [
                 'searchSpecialChars'    => '-&gt;',
                 'replaceSpecialChars'   => '->',
-                'whereSpecialChars'     => '%-&gt;%'
-            ]
+                'whereSpecialChars'     => '%-&gt;%',
+            ],
         ];
     }
 }

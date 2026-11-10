@@ -19,6 +19,9 @@ use D3\DataWizard\Application\Model\Exceptions\RenderException;
 use D3\DataWizardTasks\Application\Model\ExportRenderer\JsonLines;
 use D3\ModCfg\Tests\unit\d3ModCfgUnitTestCase;
 
+/**
+ * @coversNothing
+ */
 class JsonLinesTest extends d3ModCfgUnitTestCase
 {
     public function testRendersGeneratorAsOneJsonObjectPerLine(): void

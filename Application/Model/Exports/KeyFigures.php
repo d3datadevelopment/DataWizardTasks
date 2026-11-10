@@ -23,8 +23,8 @@ use FormManager\Factory as FormFactory;
 
 class KeyFigures extends ExportBase
 {
-    const STARTDATE_NAME = 'startdate';
-    const ENDDATE_NAME = 'enddate';
+    public const STARTDATE_NAME = 'startdate';
+    public const ENDDATE_NAME = 'enddate';
 
     protected ?string $startDateValue;
     protected ?string $endDateValue;
@@ -50,7 +50,7 @@ class KeyFigures extends ExportBase
             Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_STARTDATE', null, true),
             [
                 'name'    => self::STARTDATE_NAME,
-                'value'    => $this->startDateValue ?? ''
+                'value'    => $this->startDateValue ?? '',
             ]
         );
         $this->registerFormElement($startDate);
@@ -60,7 +60,7 @@ class KeyFigures extends ExportBase
             Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_ENDDATE', null, true),
             [
                 'name'    => self::ENDDATE_NAME,
-                'value'    => $this->endDateValue ?? ''
+                'value'    => $this->endDateValue ?? '',
             ]
         );
         $this->registerFormElement($endDate);
@@ -94,7 +94,7 @@ class KeyFigures extends ExportBase
     /**
      * @return string
      */
-    public function getTitle() : string
+    public function getTitle(): string
     {
         return Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES', null, true);
     }
@@ -102,18 +102,22 @@ class KeyFigures extends ExportBase
     /**
      * @return array
      */
-    public function getQuery() : array
+    public function getQuery(): array
     {
         $startDate = $this->parseDate($this->startDateValue);
         $endDate = $this->parseDate($this->endDateValue);
         if ($startDate === null || $endDate === null) {
             throw new TaskException($this, Registry::getLang()->translateString(
-                'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_INVALID_DATE', null, true
+                'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_INVALID_DATE',
+                null,
+                true
             ));
         }
         if ($startDate > $endDate) {
             throw new TaskException($this, Registry::getLang()->translateString(
-                'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_INVALID_DATE_RANGE', null, true
+                'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_INVALID_DATE_RANGE',
+                null,
+                true
             ));
         }
 
@@ -136,8 +140,8 @@ class KeyFigures extends ExportBase
             ORDER BY DATE_FORMAT(oo.oxorderdate, "%Y-%m") DESC',
             [
                 'startDate'     => $this->startDateValue,
-                'endExclusive'  => $endExclusive
-            ]
+                'endExclusive'  => $endExclusive,
+            ],
         ];
     }
 }

@@ -22,12 +22,12 @@ class DestroyedWysiwygSpecialChars extends ExportBase
     /**
      * @return string
      */
-    public function getTitle() : string
+    public function getTitle(): string
     {
         return Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS', null, true);
     }
 
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_DESC', null, true);
     }
@@ -35,7 +35,7 @@ class DestroyedWysiwygSpecialChars extends ExportBase
     /**
      * @return array
      */
-    public function getQuery() : array
+    public function getQuery(): array
     {
         $content            = oxNew(Content::class);
         $contentTableName   = $content->getCoreTableName();
@@ -77,8 +77,8 @@ class DestroyedWysiwygSpecialChars extends ExportBase
                 ".implode("\n                ", $joins)."
                 WHERE ".implode(' OR ', $whereFields),
             [
-                'specialChars'      => '%-&gt;%'
-            ]
+                'specialChars'      => '%-&gt;%',
+            ],
         ];
     }
 }

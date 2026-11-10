@@ -27,12 +27,12 @@ class Configuration extends Configuration_parent
     {
         parent::configure();
 
-        $this->registerAction( ConfigurationParent::GROUP_ARTICLES, oxNew( FixArtextendsItems::class));
-        $this->registerAction( ConfigurationParent::GROUP_CMS, oxNew( FixWysiwygSpecialChars::class));
+        $this->registerAction(ConfigurationParent::GROUP_ARTICLES, oxNew(FixArtextendsItems::class));
+        $this->registerAction(ConfigurationParent::GROUP_CMS, oxNew(FixWysiwygSpecialChars::class));
 
-        $this->registerExport( ConfigurationParent::GROUP_CATEGORY, oxNew( InactiveCategories::class));
-        $this->registerExport( ConfigurationParent::GROUP_SHOP, oxNew( KeyFigures::class));
-        $this->registerExport( ConfigurationParent::GROUP_SHOP, oxNew( PhpRuntimeInfo::class));
-        $this->registerExport( ConfigurationParent::GROUP_CMS, oxNew( DestroyedWysiwygSpecialChars::class));
+        $this->registerExport(ConfigurationParent::GROUP_CATEGORY, oxNew(InactiveCategories::class));
+        $this->registerExport(ConfigurationParent::GROUP_SHOP, oxNew(KeyFigures::class));
+        $this->registerExport(ConfigurationParent::GROUP_SHOP, oxNew(PhpRuntimeInfo::class));
+        $this->registerExport(ConfigurationParent::GROUP_CMS, oxNew(DestroyedWysiwygSpecialChars::class));
     }
 }

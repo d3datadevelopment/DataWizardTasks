@@ -18,6 +18,9 @@ namespace D3\DataWizardTasks\tests\unit\Application\Model;
 use D3\DataWizardTasks\Application\Model\Exports\PhpRuntimeInfo;
 use D3\ModCfg\Tests\unit\d3ModCfgUnitTestCase;
 
+/**
+ * @coversNothing
+ */
 class PhpRuntimeInfoTest extends d3ModCfgUnitTestCase
 {
     public function testProvidesRuntimeRowsWithoutSql(): void

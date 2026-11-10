@@ -42,7 +42,7 @@ class FixArtextendsItems extends ActionBase
     /**
      * @return string
      */
-    public function getTitle() : string
+    public function getTitle(): string
     {
         return Registry::getLang()->translateString('D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS', null, true);
     }
@@ -50,7 +50,7 @@ class FixArtextendsItems extends ActionBase
     /**
      * @return array
      */
-    public function getQuery() : array
+    public function getQuery(): array
     {
         $columns = $this->getArtExtendsColumns();
         $this->assertSupportedRequiredFields($columns);

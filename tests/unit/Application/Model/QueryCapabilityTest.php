@@ -20,13 +20,22 @@ use D3\DataWizard\Application\Model\ExportBase;
 use D3\ModCfg\Tests\unit\d3ModCfgUnitTestCase;
 use LogicException;
 
+/**
+ * @coversNothing
+ */
 class QueryCapabilityTest extends d3ModCfgUnitTestCase
 {
     public function testExportQueryCapabilityCheckDoesNotBuildQuery(): void
     {
-        $export = new class extends ExportBase {
-            public function getTitle(): string { return 'test'; }
-            public function getQuery(): array { throw new LogicException('getQuery must not be called'); }
+        $export = new class () extends ExportBase {
+            public function getTitle(): string
+            {
+                return 'test';
+            }
+            public function getQuery(): array
+            {
+                throw new LogicException('getQuery must not be called');
+            }
         };
 
         $this->assertTrue($export->hasQuery());
@@ -34,9 +43,15 @@ class QueryCapabilityTest extends d3ModCfgUnitTestCase
 
     public function testActionQueryCapabilityCheckDoesNotBuildQuery(): void
     {
-        $action = new class extends ActionBase {
-            public function getTitle(): string { return 'test'; }
-            public function getQuery(): array { throw new LogicException('getQuery must not be called'); }
+        $action = new class () extends ActionBase {
+            public function getTitle(): string
+            {
+                return 'test';
+            }
+            public function getQuery(): array
+            {
+                throw new LogicException('getQuery must not be called');
+            }
         };
 
         $this->assertTrue($action->hasQuery());
