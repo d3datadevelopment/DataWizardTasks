@@ -13,6 +13,16 @@
   },
   "mutators": {
     "@default": true,
+    "DecrementInteger": {
+      "ignore": [
+        "D3\\DataWizardTasks\\Application\\Model\\ExportRenderer\\Markdown::lines"
+      ]
+    },
+    "IncrementInteger": {
+      "ignore": [
+        "D3\\DataWizardTasks\\Application\\Model\\ExportRenderer\\Markdown::lines"
+      ]
+    },
     "CastString": {
       "ignore": [
         "D3\\DataWizardTasks\\Application\\Model\\Exports\\PhpRuntimeInfo::getExportData"

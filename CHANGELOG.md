@@ -8,13 +8,14 @@ All notable changes to this project are documented in this file. The format is b
 
 - Document how to register custom exports, actions and export renderers in a customer-specific module.
 - Allow operators to opt in to type-specific placeholder values for supported required `oxartextends` fields.
-- Add a PHP runtime information export without SQL and a JSON Lines renderer as integration examples.
+- Add a PHP runtime information export without SQL and a Markdown table renderer as integration examples.
 - Add PHPUnit configuration and tests for the new examples, query capability and native prepared statements.
 - Add Infection configuration, a bootstrap for OXID parent classes and documented mutation-testing exceptions.
 - Add PHP CS Fixer configuration for the package.
 
 ### Changed
 
+- Replace the unreleased JSON Lines renderer example with a streaming Markdown table renderer (`MARKDOWN`, `.md`); JSON Lines is now provided by `d3/datawizardcli`.
 - Remove the 30-month limit from the key figures export.
 - Return numeric SQL results for order counts and rounded average basket values in the key figures export.
 - Simplify category joins in the inactive categories export.

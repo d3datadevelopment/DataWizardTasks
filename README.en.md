@@ -22,7 +22,7 @@ Activate DataWizard and this module in the shop administration area under "Exten
 - **CMS special characters:** an export finds content containing `-&gt;`; an action replaces that sequence with `->` in the language fields it processes.
 - **Missing `oxartextends` records:** an action adds records for articles without a matching entry. Unknown required fields without defaults prevent query generation and execution. An unchecked-by-default option enables placeholders for supported data types; these may be inappropriate for the data. Unsupported types remain blocked.
 - **PHP runtime information:** a queryless export reports selected PHP settings and extensions of the executing process. Its output can contain technical information.
-- **JSON Lines:** a renderer adds JSONL as an export format, with one JSON record per line.
+- **Markdown:** a renderer exports records as a Markdown table (`.md`) using the format key `MARKDOWN`.
 
 These profiles are examples and cannot account for every shop or module customization. Check data-changing actions and placeholders in a test environment before production use.
 
@@ -89,7 +89,7 @@ An action similarly returns a modifying statement and its parameters. The base c
 
 ### Register custom export formats
 
-`D3\DataWizard\Application\Model\ExportRenderer\RendererBridge` manages the available export formats. The included [JSONL renderer](Application/Model/ExportRenderer/JsonLines.php) and its [bridge extension](Modules/DataWizard/Application/Model/ExportRendererBridge.php) demonstrate integration. Implement additional formats, such as PDF, in the customer-specific module and register them through the OXID module chain. Override `getRendererList()` and retain the parent entries:
+`D3\DataWizard\Application\Model\ExportRenderer\RendererBridge` manages the available export formats. The included [Markdown renderer](Application/Model/ExportRenderer/Markdown.php) and its [bridge extension](Modules/DataWizard/Application/Model/ExportRendererBridge.php) demonstrate integration. Implement additional formats, such as PDF, in the customer-specific module and register them through the OXID module chain. Override `getRendererList()` and retain the parent entries:
 
 ```php
 namespace Acme\MyModule\Modules\DataWizard;
@@ -116,7 +116,11 @@ Also add the following entry to your `metadata.php` `extend` array:
 
 `PdfRenderer` is a class you implement yourself, not an included renderer. It implements `RendererInterface`: `getContent(iterable $rows, iterable $fieldNames): string` generates the file contents, `getFileExtension()` returns the filename extension, and `getTitleTranslationId()` returns the translation key for the format selector. Provide that key in your module's language files. The unique format key appears in the selector; `QUERY` is reserved for the SQL preview. Use simple, unique keys without special characters and avoid collisions with existing formats.
 
-For streaming, a renderer additionally implements `StreamingRendererInterface`; [JsonLines](Application/Model/ExportRenderer/JsonLines.php) demonstrates both output paths. DataWizard also uses the streaming path for custom renderers, provided relevant export extension methods have not been overridden. Otherwise it uses the regular buffered path. Test both paths and memory usage with large exports.
+For streaming, a renderer additionally implements `StreamingRendererInterface`; [Markdown](Application/Model/ExportRenderer/Markdown.php) demonstrates both output paths. DataWizard also uses the streaming path for custom renderers, provided relevant export extension methods have not been overridden. Otherwise it uses the regular buffered path. Test both paths and memory usage with large exports.
+
+The example renderer registers `MARKDOWN` and generates a Markdown table with the `.md` extension. Field names form the header; as with CSV, cells follow the order within each record, regardless of its keys. Each row must have the same number of cells as the header. No field names produce empty output; no records produce only the header and separator row.
+
+Cells accept scalar values or `null`: `null` becomes an empty cell, and booleans become `true` or `false`. HTML and Markdown special characters are escaped, and line breaks become `<br>`. Tables and these line breaks require a Markdown viewer supporting them. Nested values cause a render error. This renderer is deliberately a simple integration example; JSON Lines is provided by the separate CLI extension `d3/datawizardcli`.
 
 ### Input, preview, and testing
 

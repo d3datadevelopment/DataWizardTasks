@@ -22,7 +22,7 @@ Aktivieren Sie DataWizard und dieses Modul im Shopadmin unter "Erweiterungen -> 
 - **CMS-Sonderzeichen:** ein Export findet Inhalte mit `-&gt;`; eine Aktion ersetzt diese Zeichenfolge durch `->` in den berücksichtigten Sprachfeldern.
 - **Fehlende `oxartextends`-Einträge:** die Aktion ergänzt Datensätze für Artikel ohne zugehörigen Eintrag. Unbekannte Pflichtfelder ohne Standardwert verhindern die Query-Erzeugung und Ausführung. Eine standardmäßig deaktivierte Checkbox erlaubt Platzhalter für unterstützte Datentypen; diese können fachlich unpassend sein. Nicht unterstützte Typen bleiben gesperrt.
 - **PHP-Laufzeitinformationen:** ein Export ohne SQL zeigt ausgewählte PHP-Einstellungen und Erweiterungen des ausführenden Prozesses. Die Ausgabe kann technische Informationen enthalten.
-- **JSON Lines:** ein Renderer stellt JSONL als zusätzliches Exportformat bereit; jede Zeile enthält einen Datensatz als JSON.
+- **Markdown:** ein Renderer exportiert Datensätze unter dem Formatnamen `MARKDOWN` als Markdown-Tabelle (`.md`).
 
 Die Profile sind Beispiele und können Shop- oder Modulbesonderheiten nicht allgemein berücksichtigen. Prüfen Sie insbesondere datenverändernde Aktionen und Platzhalter vor dem produktiven Einsatz in einer Testumgebung.
 
@@ -89,7 +89,7 @@ Eine Aktion gibt entsprechend ein veränderndes Statement und seine Parameter zu
 
 ### Eigene Exportformate registrieren
 
-Die `D3\DataWizard\Application\Model\ExportRenderer\RendererBridge` verwaltet die verfügbaren Exportformate. Der mitgelieferte [JSONL-Renderer](Application/Model/ExportRenderer/JsonLines.php) und seine [Bridge-Erweiterung](Modules/DataWizard/Application/Model/ExportRendererBridge.php) zeigen die Integration. Zusätzliche Formate, etwa PDF, werden im kundenindividuellen Modul implementiert und über die OXID-Modulkette registriert. Überschreiben Sie `getRendererList()` und übernehmen Sie die Einträge der Elternklasse:
+Die `D3\DataWizard\Application\Model\ExportRenderer\RendererBridge` verwaltet die verfügbaren Exportformate. Der mitgelieferte [Markdown-Renderer](Application/Model/ExportRenderer/Markdown.php) und seine [Bridge-Erweiterung](Modules/DataWizard/Application/Model/ExportRendererBridge.php) zeigen die Integration. Zusätzliche Formate, etwa PDF, werden im kundenindividuellen Modul implementiert und über die OXID-Modulkette registriert. Überschreiben Sie `getRendererList()` und übernehmen Sie die Einträge der Elternklasse:
 
 ```php
 namespace Acme\MyModule\Modules\DataWizard;
@@ -116,7 +116,11 @@ Ergänzen Sie im `extend`-Array Ihrer `metadata.php` zusätzlich:
 
 `PdfRenderer` ist hier eine selbst zu implementierende Klasse, kein mitgelieferter Renderer. Sie implementiert `RendererInterface`: `getContent(iterable $rows, iterable $fieldNames): string` erzeugt den Dateiinhalt, `getFileExtension()` liefert die Dateiendung und `getTitleTranslationId()` den Übersetzungsschlüssel für die Formatauswahl. Stellen Sie diesen Schlüssel in den Sprachdateien Ihres Moduls bereit. Der eindeutige Format-Schlüssel erscheint in der Auswahlliste; `QUERY` ist für die SQL-Vorschau reserviert. Nutzen Sie einfache, eindeutige Schlüssel ohne Sonderzeichen und vermeiden Sie Kollisionen mit vorhandenen Formaten.
 
-Für Streaming implementiert ein Renderer zusätzlich `StreamingRendererInterface`; [JsonLines](Application/Model/ExportRenderer/JsonLines.php) zeigt beide Ausgabewege. Der DataWizard verwendet den Streaming-Pfad auch für eigene Renderer, sofern keine relevanten Export-Erweiterungsmethoden überschrieben wurden. Andernfalls nutzt er den regulären, gepufferten Pfad. Testen Sie beide Wege und den Speicherbedarf bei großen Exporten.
+Für Streaming implementiert ein Renderer zusätzlich `StreamingRendererInterface`; [Markdown](Application/Model/ExportRenderer/Markdown.php) zeigt beide Ausgabewege. Der DataWizard verwendet den Streaming-Pfad auch für eigene Renderer, sofern keine relevanten Export-Erweiterungsmethoden überschrieben wurden. Andernfalls nutzt er den regulären, gepufferten Pfad. Testen Sie beide Wege und den Speicherbedarf bei großen Exporten.
+
+Der Beispielrenderer registriert `MARKDOWN` und erzeugt eine Markdown-Tabelle mit der Dateiendung `.md`. Die Feldnamen bilden die Kopfzeile; Zellwerte folgen wie beim CSV-Export der Reihenfolge im Datensatz, unabhängig von dessen Schlüsseln. Jede Zeile muss gleich viele Zellen wie die Kopfzeile enthalten. Ohne Feldnamen entsteht eine leere Ausgabe, ohne Datensätze nur die Kopfzeile mit Trennzeile.
+
+Zellen enthalten skalare Werte oder `null`: `null` wird leer, boolesche Werte werden als `true` beziehungsweise `false` ausgegeben. HTML und Markdown-Sonderzeichen werden maskiert, Zeilenumbrüche durch `<br>` ersetzt. Tabellen und diese Zeilenumbrüche benötigen einen Markdown-Betrachter mit entsprechender Unterstützung. Verschachtelte Werte werden mit einem Renderfehler abgewiesen. Der Renderer dient als bewusst einfaches Integrationsbeispiel; JSON Lines wird von der separaten CLI-Extension `d3/datawizardcli` bereitgestellt.
 
 ### Eingaben, Vorschau und Tests
 

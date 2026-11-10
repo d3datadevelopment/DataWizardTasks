@@ -15,14 +15,14 @@ declare(strict_types=1);
 
 namespace D3\DataWizardTasks\Modules\DataWizard\Application\Model;
 
-use D3\DataWizardTasks\Application\Model\ExportRenderer\JsonLines;
+use D3\DataWizardTasks\Application\Model\ExportRenderer\Markdown;
 
 class ExportRendererBridge extends ExportRendererBridge_parent
 {
-    public const FORMAT_JSONL = 'JSONL';
+    public const FORMAT_MARKDOWN = 'MARKDOWN';
 
     public function getRendererList(): array
     {
-        return parent::getRendererList() + [self::FORMAT_JSONL => oxNew(JsonLines::class)];
+        return parent::getRendererList() + [self::FORMAT_MARKDOWN => oxNew(Markdown::class)];
     }
 }
