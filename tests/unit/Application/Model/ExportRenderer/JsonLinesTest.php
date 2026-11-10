@@ -20,7 +20,7 @@ use D3\DataWizardTasks\Application\Model\ExportRenderer\JsonLines;
 use D3\ModCfg\Tests\unit\d3ModCfgUnitTestCase;
 
 /**
- * @coversNothing
+ * @covers \D3\DataWizardTasks\Application\Model\ExportRenderer\JsonLines
  */
 class JsonLinesTest extends d3ModCfgUnitTestCase
 {
@@ -67,5 +67,23 @@ class JsonLinesTest extends d3ModCfgUnitTestCase
         $this->expectException(RenderException::class);
 
         (new JsonLines())->getContent([['value' => "\xB1\x31"]], ['value']);
+    }
+
+    public function testInvalidJsonInStreamRaisesRenderException(): void
+    {
+        $stream = fopen('php://temp', 'w+b');
+        try {
+            $this->expectException(RenderException::class);
+            (new JsonLines())->writeContent($stream, [['value' => "\xB1\x31"]], []);
+        } finally {
+            fclose($stream);
+        }
+    }
+
+    public function testRendererProvidesJsonLinesMetadata(): void
+    {
+        $renderer = new JsonLines();
+        $this->assertSame('jsonl', $renderer->getFileExtension());
+        $this->assertSame('D3_DATAWIZARDTASKS_EXPORT_FORMAT_JSONL', $renderer->getTitleTranslationId());
     }
 }

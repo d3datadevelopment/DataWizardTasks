@@ -19,7 +19,7 @@ use D3\DataWizardTasks\Application\Model\Exports\PhpRuntimeInfo;
 use D3\ModCfg\Tests\unit\d3ModCfgUnitTestCase;
 
 /**
- * @coversNothing
+ * @covers \D3\DataWizardTasks\Application\Model\Exports\PhpRuntimeInfo
  */
 class PhpRuntimeInfoTest extends d3ModCfgUnitTestCase
 {
@@ -29,8 +29,12 @@ class PhpRuntimeInfoTest extends d3ModCfgUnitTestCase
         [$rows, $fieldNames] = $export->getExportData(['']);
 
         $this->assertFalse($export->hasQuery());
+        $this->assertSame(['', []], $export->getQuery());
         $this->assertSame(['Setting', 'Value'], $fieldNames);
         $this->assertNotEmpty($rows);
         $this->assertContains(['Setting' => 'PHP version', 'Value' => PHP_VERSION], $rows);
+        $this->assertContains(['Setting' => 'Integer size', 'Value' => (string) (PHP_INT_SIZE * 8).' bit'], $rows);
+        $this->assertContains(['Setting' => 'Default timezone', 'Value' => date_default_timezone_get()], $rows);
+        $this->assertContains(['Setting' => 'Loaded extensions', 'Value' => implode(', ', get_loaded_extensions())], $rows);
     }
 }

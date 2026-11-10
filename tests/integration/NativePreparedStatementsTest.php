@@ -18,14 +18,20 @@ namespace D3\DataWizardTasks\tests\integration;
 use D3\DataWizardTasks\Application\Model\Exports\DestroyedWysiwygSpecialChars;
 use D3\DataWizardTasks\Application\Model\Exports\InactiveCategories;
 use D3\DataWizardTasks\Application\Model\Exports\KeyFigures;
+use D3\DataWizardTasks\Application\Model\Actions\FixWysiwygSpecialChars;
 use D3\ModCfg\Tests\unit\d3ModCfgUnitTestCase;
 use Doctrine\DBAL\Connection;
 use OxidEsales\EshopCommunity\Internal\Container\ContainerFactory;
 use OxidEsales\EshopCommunity\Internal\Framework\Database\ConnectionProviderInterface;
 use PDO;
+use OxidEsales\Eshop\Core\Language;
+use OxidEsales\Eshop\Core\Registry;
 
 /**
- * @coversNothing
+ * @covers \D3\DataWizardTasks\Application\Model\Exports\InactiveCategories
+ * @covers \D3\DataWizardTasks\Application\Model\Exports\KeyFigures
+ * @covers \D3\DataWizardTasks\Application\Model\Exports\DestroyedWysiwygSpecialChars
+ * @covers \D3\DataWizardTasks\Application\Model\Actions\FixWysiwygSpecialChars
  */
 class NativePreparedStatementsTest extends d3ModCfgUnitTestCase
 {
@@ -79,5 +85,44 @@ class NativePreparedStatementsTest extends d3ModCfgUnitTestCase
             'key figures' => [KeyFigures::class],
             'CMS special characters' => [DestroyedWysiwygSpecialChars::class],
         ];
+    }
+
+    public function testInactiveCategoriesFiltersInactiveCategoriesAndActiveArticles(): void
+    {
+        [$query, $parameters] = oxNew(InactiveCategories::class)->getQuery();
+        $this->assertSame(['categoryActive' => 0, 'articleActive' => 1], $parameters);
+        $this->assertStringContainsString('oc.OXACTIVE = :categoryActive', $query);
+        $this->assertStringContainsString('oa.OXACTIVE = :articleActive', $query);
+        $this->assertStringContainsString('INNER JOIN', $query);
+        $this->assertStringContainsString('COUNT(oa.oxid) as ', $query);
+    }
+
+    public function testExportColumnsUseBackendTranslations(): void
+    {
+        $oldLanguage = Registry::getLang();
+        $language = $this->getMockBuilder(get_class($oldLanguage))->onlyMethods(['translateString'])->getMock();
+        $language->method('translateString')->willReturnCallback(
+            static fn ($id, $languageId = null, $admin = false) => ($admin ? 'admin_' : 'frontend_').$id
+        );
+        Registry::set(Language::class, $language);
+        try {
+            [$categoryQuery] = oxNew(InactiveCategories::class)->getQuery();
+            foreach (['TREE', 'TITLE', 'COUNT'] as $suffix) {
+                $this->assertStringContainsString('admin_D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_'.$suffix, $categoryQuery);
+            }
+            [$cmsQuery] = oxNew(DestroyedWysiwygSpecialChars::class)->getQuery();
+            foreach (['TITLE', 'LOADID'] as $suffix) {
+                $this->assertStringContainsString('admin_D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_'.$suffix, $cmsQuery);
+            }
+        } finally {
+            Registry::set(Language::class, $oldLanguage);
+        }
+    }
+
+    public function testCmsRepairCanBePreparedWithoutExecutingTheUpdate(): void
+    {
+        [$query, $parameters] = oxNew(FixWysiwygSpecialChars::class)->getQuery();
+        $result = $this->connection->executeQuery('EXPLAIN '.$query, $parameters);
+        $this->assertNotEmpty($result->fetchAllAssociative());
     }
 }
