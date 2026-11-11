@@ -33,6 +33,7 @@ return [
     'D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_TITLE' => 'Titel',
 
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES'                         => 'Bestellungskennzahlen nach Monat',
+    'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_DESC'                    => 'Exportiert die Anzahl der Bestellungen und den durchschnittlichen Bruttobestellwert je Monat, umgerechnet anhand des gespeicherten Währungskurses. Die Monate werden absteigend sortiert. Optionale Parameter: startdate und enddate im Format JJJJ-MM-TT, jeweils einschließlich des angegebenen Tages. Standardzeitraum: 01.01.1970 bis heute. Das Startdatum darf nicht nach dem Enddatum liegen. Es wird nicht nach Zahlungs- oder Stornierungsstatus gefiltert.',
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_STARTDATE'         => 'Startdatum (optional)',
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_ENDDATE'           => 'Enddatum (optional)',
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_INVALID_DATE'            => 'Bitte gültige Datumswerte im Format JJJJ-MM-TT eingeben.',

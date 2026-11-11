@@ -99,6 +99,11 @@ class KeyFigures extends ExportBase
         return Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES', null, true);
     }
 
+    public function getDescription(): string
+    {
+        return Registry::getLang()->translateString('D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_DESC', null, true);
+    }
+
     /**
      * @return array
      */

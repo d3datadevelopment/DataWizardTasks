@@ -33,6 +33,7 @@ return [
     'D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_TITLE' => 'title',
 
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES'                         => 'Order key figures by month',
+    'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_DESC'                    => 'Exports the number of orders and the average gross order value per month, adjusted using the recorded currency rate. Months are sorted from newest to oldest. Optional parameters: startdate and enddate in YYYY-MM-DD format, including both dates. Defaults: 1970-01-01 through today. The start date must not be after the end date. Orders are not filtered by payment or cancellation status.',
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_STARTDATE'         => 'start date (optional)',
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_ENDDATE'           => 'end date (optional)',
     'D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_INVALID_DATE'            => 'Please enter valid dates in YYYY-MM-DD format.',
