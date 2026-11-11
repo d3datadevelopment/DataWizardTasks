@@ -26,7 +26,7 @@
     "GPL-3.0-or-later"
   ],
   "require": {
-    "d3/datawizard": "^3.0"
+    "d3/datawizard": "^3.1"
   },
   "require-dev": {
     "d3/testingtools": "^1.3.0.1",
