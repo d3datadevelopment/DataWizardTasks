@@ -23,6 +23,7 @@ return [
     'charset'                                                       => 'UTF-8',
 
     'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES'                 => 'deaktivierte Kategorien, mit aktiven Artikeln',
+    'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_DESC'            => 'Listet inaktive Kategorien mit direkt zugeordneten aktiven Artikeln auf. Der Export enthält Kategorie-ID, Shop-ID, Titel, Kategoriepfad und Anzahl der passenden aktiven Artikel. Die Sortierung folgt der Position im Kategorienbaum.',
     'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_TREE'            => 'Baum',
     'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_TITLE'           => 'Titel',
     'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_COUNT'           => 'Anzahl',
@@ -46,7 +47,9 @@ return [
     'D3_DATAWIZARDTASKS_EXPORT_FORMAT_MARKDOWN'                        => 'Markdown-Tabelle',
 
     'D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS'                 => 'fehlende oxartextends-Einträge nachtragen',
+    'D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS_DESC'            => 'Legt für jeden Artikel ohne oxartextends-Eintrag einen fehlenden Datensatz an. Felder mit Datenbankstandardwerten überlässt die Aktion der Datenbank; Langbeschreibungsfelder ohne Standardwert werden leer initialisiert. Fehlen für weitere Pflichtfelder Standardwerte, bricht die Aktion ab und listet diese Felder. Der optionale Fallback befüllt unterstützte Pflichtfelder mit typabhängigen Platzhaltern, die möglicherweise nicht zu den Shopdaten passen.',
     'D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS_REQUIRED_FIELDS' => 'Die Reparatur wurde nicht ausgeführt. Für folgende Pflichtfelder in oxartextends ohne Datenbankstandardwert ist keine Initialisierung definiert: %s.',
     'D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS_FALLBACK'       => 'Fehlende Pflichtfelder mit typabhängigen Platzhalterwerten befüllen. Diese Werte können fachlich unpassend sein.',
     'D3_DATAWIZARDTASKS_ACTIONS_FIXWYSIWYGSPECIALCHARS'             => 'Texte mit zerstörten Sonderzeichen korrigieren',
+    'D3_DATAWIZARDTASKS_ACTIONS_FIXWYSIWYGSPECIALCHARS_DESC'        => 'Ersetzt die maskierte WYSIWYG-Pfeilfolge "-&gt;" in CMS-Inhaltsfeldern aller Shopsprachen durch "->". Aktualisiert werden nur Inhaltsdatensätze, die diese Zeichenfolge enthalten.',
 ];

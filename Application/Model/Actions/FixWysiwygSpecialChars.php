@@ -27,6 +27,11 @@ class FixWysiwygSpecialChars extends ActionBase
         return Registry::getLang()->translateString('D3_DATAWIZARDTASKS_ACTIONS_FIXWYSIWYGSPECIALCHARS', null, true);
     }
 
+    public function getDescription(): string
+    {
+        return Registry::getLang()->translateString('D3_DATAWIZARDTASKS_ACTIONS_FIXWYSIWYGSPECIALCHARS_DESC', null, true);
+    }
+
     /**
      * @return array
      */

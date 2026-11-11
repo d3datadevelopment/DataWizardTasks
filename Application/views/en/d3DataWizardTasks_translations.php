@@ -23,6 +23,7 @@ return [
     'charset'                                                       => 'UTF-8',
 
     'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES'                 => 'deactivated categories, with active articles',
+    'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_DESC'            => 'Lists inactive categories that have directly assigned active articles. The result includes each category ID, shop ID, title, category path and count of matching active articles. Categories are ordered by their tree position.',
     'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_TREE'            => 'tree',
     'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_TITLE'           => 'title',
     'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_COUNT'           => 'count',
@@ -46,7 +47,9 @@ return [
     'D3_DATAWIZARDTASKS_EXPORT_FORMAT_MARKDOWN'                        => 'Markdown table',
 
     'D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS'                 => 'add missing oxartextends entries',
+    'D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS_DESC'            => 'Creates a missing oxartextends row for every article without one. Values with database defaults are left to the database; long description fields without defaults are initialized as empty. If other required fields have no defaults, the action stops and lists them. The optional fallback fills supported required fields with generic type-based placeholder values, which may not suit the shop data.',
     'D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS_REQUIRED_FIELDS' => 'The repair was not executed. No initialization is defined for these required oxartextends fields without database defaults: %s.',
     'D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS_FALLBACK'       => 'Fill missing required fields with type-specific placeholder values. These values may not be appropriate for your data.',
     'D3_DATAWIZARDTASKS_ACTIONS_FIXWYSIWYGSPECIALCHARS'             => 'fix texts with destroyed special characters',
+    'D3_DATAWIZARDTASKS_ACTIONS_FIXWYSIWYGSPECIALCHARS_DESC'        => 'Replaces the escaped WYSIWYG arrow sequence "-&gt;" with "->" in CMS content fields across all shop languages. Only content rows containing the sequence are updated.',
 ];

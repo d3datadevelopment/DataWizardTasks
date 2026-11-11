@@ -47,6 +47,11 @@ class FixArtextendsItems extends ActionBase
         return Registry::getLang()->translateString('D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS', null, true);
     }
 
+    public function getDescription(): string
+    {
+        return Registry::getLang()->translateString('D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS_DESC', null, true);
+    }
+
     /**
      * @return array
      */
