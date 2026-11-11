@@ -39,9 +39,11 @@ class TaskLabelsTest extends d3ModCfgUnitTestCase
     {
         return [
             'CMS action title' => [FixWysiwygSpecialChars::class, 'getTitle', 'D3_DATAWIZARDTASKS_ACTIONS_FIXWYSIWYGSPECIALCHARS'],
+            'CMS action description' => [FixWysiwygSpecialChars::class, 'getDescription', 'D3_DATAWIZARDTASKS_ACTIONS_FIXWYSIWYGSPECIALCHARS_DESC'],
             'CMS export title' => [DestroyedWysiwygSpecialChars::class, 'getTitle', 'D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS'],
             'CMS export description' => [DestroyedWysiwygSpecialChars::class, 'getDescription', 'D3_DATAWIZARDTASKS_EXPORTS_DESTROYEDWYSIWYGSPECIALCHARS_DESC'],
             'categories title' => [InactiveCategories::class, 'getTitle', 'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES'],
+            'categories description' => [InactiveCategories::class, 'getDescription', 'D3_DATAWIZARDTASKS_EXPORTS_INACTIVECATEGORIES_DESC'],
             'PHP runtime title' => [PhpRuntimeInfo::class, 'getTitle', 'D3_DATAWIZARDTASKS_EXPORTS_PHP_RUNTIME_INFO'],
             'PHP runtime description' => [PhpRuntimeInfo::class, 'getDescription', 'D3_DATAWIZARDTASKS_EXPORTS_PHP_RUNTIME_INFO_DESC'],
         ];

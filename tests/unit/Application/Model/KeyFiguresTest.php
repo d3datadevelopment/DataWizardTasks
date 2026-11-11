@@ -89,6 +89,7 @@ class KeyFiguresTest extends d3ModCfgUnitTestCase
         try {
             $export = $this->export('2024-01-01', '2024-01-31');
             $this->assertSame('admin_D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES', $export->getTitle());
+            $this->assertSame('admin_D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_DESC', $export->getDescription());
             $fields = $export->getFormElements();
             $this->assertStringContainsString('admin_D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_STARTDATE', (string) $fields[0]);
             $this->assertStringContainsString('admin_D3_DATAWIZARDTASKS_EXPORTS_KEYFIGURES_FIELD_ENDDATE', (string) $fields[1]);

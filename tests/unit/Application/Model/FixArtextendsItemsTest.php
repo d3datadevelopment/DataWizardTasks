@@ -165,7 +165,7 @@ class FixArtextendsItemsTest extends d3ModCfgUnitTestCase
         }
     }
 
-    public function testTitleAndFallbackLabelUseBackendTranslations(): void
+    public function testTitleDescriptionAndFallbackLabelUseBackendTranslations(): void
     {
         $oldLanguage = Registry::getLang();
         $language = $this->getMockBuilder(get_class($oldLanguage))->onlyMethods(['translateString'])->getMock();
@@ -176,6 +176,7 @@ class FixArtextendsItemsTest extends d3ModCfgUnitTestCase
         try {
             $action = $this->action([]);
             $this->assertSame('admin_D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS', $action->getTitle());
+            $this->assertSame('admin_D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS_DESC', $action->getDescription());
             $this->assertStringContainsString(
                 'admin_D3_DATAWIZARDTASKS_ACTIONS_FIXARTEXTENDSITEMS_FALLBACK',
                 (string) $action->getFormElements()[0]
